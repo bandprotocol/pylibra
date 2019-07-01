@@ -1,5 +1,7 @@
 /.vscode/
 /venv/
+/dist/
+/pylibra.egg-info/
 __pycache__/
 *.pyc
 *.swp
