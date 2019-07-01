@@ -2,6 +2,7 @@
 /venv/
 /dist/
 /pylibra.egg-info/
+/pylibra/proto/
 __pycache__/
 *.pyc
 *.swp

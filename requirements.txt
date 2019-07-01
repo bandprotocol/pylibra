@@ -7,6 +7,7 @@ chardet==3.0.4
 Click==7.0
 docutils==0.14
 ed25519==1.5
+grpcio==1.21.1
 idna==2.8
 mnemonic==0.18
 pbkdf2==1.3
