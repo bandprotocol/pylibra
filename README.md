@@ -63,7 +63,7 @@ client2 = LibraClient('localhost:80')  # Client connecting to a local node
 
 ### Get Account State of an Address
 
-You can query an account's state by using `get_account_state` function on `LibraClient`. The function returns an `AccountState`, which contains the address' sequence number, balance, and more.
+You can query an account's state by using `get_account_state` function on `LibraClient`. The function returns an `AccountState`, which contains the address' sequence number, balance, and more. If an account has not been created yet (never received any funds), the function will return `None`.
 
 ```py
 from pylibra import LibraClient, LibraWallet
