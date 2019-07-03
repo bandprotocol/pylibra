@@ -2,7 +2,7 @@
 
 ## Summary
 
-PyLibra is an unofficial python client for [Libra blockchain](http://libra.org). The library allows Python program to interact with Libra nodes with [protobuf](https://developers.google.com/protocol-buffers/) message through [grpc](https://grpc.io/).
+PyLibra is an unofficial python client for [Libra blockchain](http://libra.org). The library allows Python program to interact with Libra nodes with [protobuf](https://developers.google.com/protocol-buffers/) message through [grpc](https://grpc.io/). Note that this library performs key management internally. No server required!
 
 ## Installation
 
