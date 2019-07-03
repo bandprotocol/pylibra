@@ -10,9 +10,8 @@ MNEMONIC = Mnemonic("english")
 class LibraWallet(object):
     def __init__(self, words=None, strength=128):
         if words is None:
-            self.entropy = MNEMONIC.generate(strength)
-        else:
-            self.entropy = MNEMONIC.to_entropy(words)
+            words = MNEMONIC.generate(strength)
+        self.entropy = MNEMONIC.to_entropy(words)
 
     def get_account(self, counter):
         shazer = sha3_256()
