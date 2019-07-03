@@ -48,6 +48,8 @@ class LibraClient(object):
                 key_values[key] = val
             if ACCOUNT_STATE_PATH in key_values:
                 results.append(AccountState.from_bytes(key_values[ACCOUNT_STATE_PATH]))
+            else:
+                results.append(None)
         return results
 
     def get_account_state(self, address):
