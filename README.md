@@ -105,7 +105,7 @@ client.mint_with_faucet(account, 10000)
 
 Note that in the official testnet, the Libra node ONLY allows sending [the official transfer transaction script](https://github.com/libra/libra/blob/master/language/stdlib/transaction_scripts/peer_to_peer_transfer.mvir). In the future, this libra can be extended to support more transaction scripts as well, as you can see that the logic of creating and sending a transaction is completely independent!
 
-```
+```py
 from pylibra import LibraClient, LibraWallet
 from pylibra.transaction import TransferTransaction
 
