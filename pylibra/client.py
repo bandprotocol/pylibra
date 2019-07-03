@@ -61,8 +61,8 @@ class LibraClient(object):
     ):
         seq = self.get_account_state(sender.address).sequence_number
         if expiration_time is None:
-            # expiration_time = int(time.time()) + 10
-            expiration_time = 1661898073
+            expiration_time = int(time.time()) + 10
+
         raw_tx = transaction.as_raw_transaction(
             sender.address, seq, max_gas_amount, gas_unit_price, expiration_time
         )
@@ -79,7 +79,5 @@ class LibraClient(object):
         signed_txn.sender_public_key = bytes.fromhex(sender.public_key)
         signed_txn.raw_txn_bytes = raw_txn_bytes
         signed_txn.sender_signature = sender.sign(shazer.digest())[:64]
+        return self.stub.SubmitTransaction(request)
 
-        print(seq, request)
-        x = self.stub.SubmitTransaction(request)
-        print(x)
