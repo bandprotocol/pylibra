@@ -8,6 +8,7 @@ from pylibra.proto.admission_control_pb2 import SubmitTransactionRequest
 from pylibra.proto.admission_control_pb2_grpc import AdmissionControlStub
 from pylibra.proto.get_with_proof_pb2 import UpdateToLatestLedgerRequest
 from pylibra.proto.transaction_pb2 import SignedTransaction, TransactionArgument
+from pylibra.wallet.account import Account
 from pylibra.wallet.account_state import AccountState
 
 
@@ -27,6 +28,9 @@ class LibraClient(object):
     def get_account_states(self, addresses):
         request = UpdateToLatestLedgerRequest()
         for address in addresses:
+            if isinstance(address, Account):
+                address = address.address
+
             requested_item = request.requested_items.add()
             requested_item.get_account_state_request.address = bytes.fromhex(address)
         response = self.stub.UpdateToLatestLedger(request)
@@ -50,6 +54,9 @@ class LibraClient(object):
         return self.get_account_states([address])[0]
 
     def mint_with_faucet(self, receiver, value):
+        if isinstance(receiver, Account):
+            receiver = receiver.address
+
         response = requests.get(self.faucet, params={"address": receiver, "amount": value})
         if response.status_code != 200:
             raise Exception("Failed to send request to faucent service: {}".format(self.faucet))

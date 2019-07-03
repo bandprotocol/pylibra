@@ -1,5 +1,6 @@
 from pylibra.proto.transaction_pb2 import TransactionArgument
 from pylibra.transaction.base import TransactionBase
+from pylibra.wallet.account import Account
 
 
 TRANSFER_OPCODES = bytes.fromhex(
@@ -9,6 +10,9 @@ TRANSFER_OPCODES = bytes.fromhex(
 
 class TransferTransaction(TransactionBase):
     def __init__(self, receiver, value):
+        if isinstance(receiver, Account):
+            receiver = receiver.address
+
         self.receiver = receiver
         self.value = value
 
