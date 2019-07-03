@@ -20,13 +20,6 @@ class LibraClient(object):
         self.stub = AdmissionControlStub(self.channel)
         self.faucet = faucet
 
-    def mint_with_faucet(self, receiver, value):
-        response = requests.get(self.faucet, params={"address": receiver, "amount": value})
-        if response.status_code != 200:
-            raise Exception("Failed to send request to faucent service: {}".format(self.faucet))
-        sequence_number = int(response.content)
-        return sequence_number
-
     def get_account_states(self, addresses):
         request = UpdateToLatestLedgerRequest()
         for address in addresses:
@@ -51,3 +44,13 @@ class LibraClient(object):
 
     def get_account_state(self, address):
         return self.get_account_states([address])[0]
+
+    def mint_with_faucet(self, receiver, value):
+        response = requests.get(self.faucet, params={"address": receiver, "amount": value})
+        if response.status_code != 200:
+            raise Exception("Failed to send request to faucent service: {}".format(self.faucet))
+        sequence_number = int(response.content)
+        return sequence_number
+
+    def send_transaction(self, sender, receiver, value):
+        pass

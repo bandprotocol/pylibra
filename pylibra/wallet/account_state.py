@@ -13,13 +13,13 @@ class AccountState(object):
 
     @staticmethod
     def empty(address):
-        return AccountState(bytes.fromhex(address), 0, 0, 0, 0)
+        return AccountState(address, 0, 0, 0, 0)
 
     @staticmethod
     def from_bytes(data):
         buffer = BytesIO(data)
         authentication_key_len = int.from_bytes(buffer.read(4), byteorder="little")
-        authentication_key = buffer.read(authentication_key_len)
+        authentication_key = buffer.read(authentication_key_len).hex()
         balance = int.from_bytes(buffer.read(8), byteorder="little")
         received_events_count = int.from_bytes(buffer.read(8), byteorder="little")
         sent_events_count = int.from_bytes(buffer.read(8), byteorder="little")
@@ -30,7 +30,7 @@ class AccountState(object):
 
     def __str__(self):
         return "AccountState({}, {}, {}, {}, {})".format(
-            self.authentication_key.hex(),
+            self.authentication_key,
             self.balance,
             self.received_events_count,
             self.sent_events_count,

@@ -9,8 +9,17 @@ from pylibra.client import LibraClient
 
 c = LibraClient()
 print(c.get_account_state("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83"))
+# print(
+#     c.mint_with_faucet("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10000000)
+# )
+
+from pylibra.transaction.transfer import TransferTransaction
+
+t = TransferTransaction("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10)
 print(
-    c.mint_with_faucet("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10000000)
+    t.as_raw_transaction(
+        "659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 1, 1, 1, 1
+    )
 )
 
 # channel = insecure_channel("ac.testnet.libra.org:80")
