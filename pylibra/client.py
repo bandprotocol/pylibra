@@ -1,9 +1,13 @@
 import requests
+import time
 from io import BytesIO
 from grpc import insecure_channel
+from sha3 import sha3_256
 
+from pylibra.proto.admission_control_pb2 import SubmitTransactionRequest
 from pylibra.proto.admission_control_pb2_grpc import AdmissionControlStub
 from pylibra.proto.get_with_proof_pb2 import UpdateToLatestLedgerRequest
+from pylibra.proto.transaction_pb2 import SignedTransaction, TransactionArgument
 from pylibra.wallet.account_state import AccountState
 
 
@@ -52,5 +56,30 @@ class LibraClient(object):
         sequence_number = int(response.content)
         return sequence_number
 
-    def send_transaction(self, sender, receiver, value):
-        pass
+    def send_transaction(
+        self, sender, transaction, max_gas_amount=10000, gas_unit_price=0, expiration_time=None
+    ):
+        seq = self.get_account_state(sender.address).sequence_number
+        if expiration_time is None:
+            # expiration_time = int(time.time()) + 10
+            expiration_time = 1661898073
+        raw_tx = transaction.as_raw_transaction(
+            sender.address, seq, max_gas_amount, gas_unit_price, expiration_time
+        )
+        raw_txn_bytes = raw_tx.SerializeToString()
+
+        shazer = sha3_256()
+        shazer.update(
+            bytes.fromhex("46f174df6ca8de5ad29745f91584bb913e7df8dd162e3e921a5c1d8637c88d16")
+        )
+        shazer.update(raw_txn_bytes)
+
+        request = SubmitTransactionRequest()
+        signed_txn = request.signed_txn
+        signed_txn.sender_public_key = bytes.fromhex(sender.public_key)
+        signed_txn.raw_txn_bytes = raw_txn_bytes
+        signed_txn.sender_signature = sender.sign(shazer.digest())[:64]
+
+        print(seq, request)
+        x = self.stub.SubmitTransaction(request)
+        print(x)

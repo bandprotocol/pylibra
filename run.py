@@ -6,21 +6,39 @@ from pylibra.proto.get_with_proof_pb2 import UpdateToLatestLedgerRequest
 
 
 from pylibra.client import LibraClient
+from pylibra.wallet.account import Account
+from pylibra.wallet import LibraWallet
 
 c = LibraClient()
-print(c.get_account_state("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83"))
+# print(c.get_account_state("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83"))
 # print(
 #     c.mint_with_faucet("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10000000)
 # )
 
 from pylibra.transaction.transfer import TransferTransaction
 
-t = TransferTransaction("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10)
-print(
-    t.as_raw_transaction(
-        "659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 1, 1, 1, 1
-    )
-)
+# t = TransferTransaction("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 10)
+# c.send_transaction("659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", t)
+
+w = LibraWallet("search excess lemon base exile lounge alarm dance govern vote blast because")
+a = w.get_account(0)
+print(a.address)
+# c.mint_with_faucet(a.address, 100000000)
+# print("done!")
+t = TransferTransaction("1dc70740d8ef845095db2cc1af5be777ff1fbfe4361cff36ff4c6952072b9296", 2000000)
+c.send_transaction(a, t)
+print(a.private_key)
+print(c.get_account_state(a.address))
+# print(w.ge)
+# a = Account.new()
+print(a.private_key)
+print(a.public_key)
+print(a.address)
+# print(
+#     t.as_raw_transaction(
+#         "659f81bf3e938eda17ae5bf5c7b5589d9320fdcf93660f7b63b501c46738dc83", 1, 1, 1, 1
+#     )
+# )
 
 # channel = insecure_channel("ac.testnet.libra.org:80")
 # stub = AdmissionControlStub(channel)

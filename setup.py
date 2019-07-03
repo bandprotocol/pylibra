@@ -10,13 +10,13 @@ REQUIREMENTS = [
 
 setup(
     name="pylibra",
-    version="0.0.3",
+    version="0.0.7",
     license="MIT",
     author="Band Protocol",
     author_email="opensource@bandprotocol.com",
     description="A Python client for Libra network",
     url="https://github.com/bandprotocol/pylibra",
-    packages=["pylibra"],
+    packages=["pylibra", "pylibra.wallet", "pylibra.proto", "pylibra.transaction"],
     keywords=["libra", "client", "cryptocurrency", "blockchain"],
     install_requires=REQUIREMENTS,
     classifiers=[
