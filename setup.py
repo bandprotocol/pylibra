@@ -17,6 +17,7 @@ setup(
     author_email="opensource@bandprotocol.com",
     description="A Python client for Libra network",
     long_description=README,
+    long_description_content_type='text/markdown',
     url="https://github.com/bandprotocol/pylibra",
     packages=["pylibra", "pylibra.wallet", "pylibra.proto", "pylibra.transaction"],
     keywords=["libra", "client", "cryptocurrency", "blockchain"],
