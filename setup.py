@@ -2,6 +2,7 @@ import os
 from setuptools import setup
 
 
+README = open(os.path.join(os.path.dirname(__file__), "README.md")).read()
 REQUIREMENTS = [
     line.strip()
     for line in open(os.path.join(os.path.dirname(__file__), "requirements.txt")).readlines()
@@ -10,11 +11,12 @@ REQUIREMENTS = [
 
 setup(
     name="pylibra",
-    version="0.1.5",
+    version="0.1.7",
     license="MIT",
     author="Band Protocol",
     author_email="opensource@bandprotocol.com",
     description="A Python client for Libra network",
+    long_description=README,
     url="https://github.com/bandprotocol/pylibra",
     packages=["pylibra", "pylibra.wallet", "pylibra.proto", "pylibra.transaction"],
     keywords=["libra", "client", "cryptocurrency", "blockchain"],
