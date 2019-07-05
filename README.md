@@ -132,3 +132,11 @@ This software is created by [Band Protocol](https://bandprotocol.com) and is rel
 ## Contributing
 
 Any and all contributions are welcome! The process is simple: fork this repo, make your changes, and submit a pull request.
+
+### Running Unit Tests
+
+PyLibra uses [pytest](https://docs.pytest.org/) to run unit tests. 
+
+```
+$ PYTHONPATH=. pytest
+```
