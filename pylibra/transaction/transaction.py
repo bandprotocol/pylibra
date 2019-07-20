@@ -14,6 +14,8 @@ class Transaction(TransactionBase):
         for kind, val in zip(self.arg_types, self.arg_vals):
             arg = program.arguments.add()
             if kind == "address":
+                if isinstance(val, Account):
+                    val = val.address
                 arg.type = TransactionArgument.ADDRESS
                 arg.data = bytes.fromhex(val)
             elif kind == "u64":
