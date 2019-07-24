@@ -3,7 +3,7 @@ from pylibra.transaction.base import TransactionBase
 from pylibra.wallet.account import Account
 
 
-class Transaction(TransactionBase):
+class CustomTransaction(TransactionBase):
     def __init__(self, opcodes, arg_types, arg_vals):
         self.opcodes = opcodes
         self.arg_types = arg_types
@@ -13,12 +13,12 @@ class Transaction(TransactionBase):
         program.code = bytes.fromhex(self.opcodes)
         for kind, val in zip(self.arg_types, self.arg_vals):
             arg = program.arguments.add()
-            if kind == "address":
+            if kind.lower() == "address":
                 if isinstance(val, Account):
                     val = val.address
                 arg.type = TransactionArgument.ADDRESS
                 arg.data = bytes.fromhex(val)
-            elif kind == "u64":
+            elif kind.lower() == "u64":
                 arg.type = TransactionArgument.U64
                 arg.data = val.to_bytes(8, "little")
             else:
