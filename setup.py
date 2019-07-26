@@ -1,17 +1,18 @@
+import io
 import os
 from setuptools import setup
 
 
-README = open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf-8").read()
+README = io.open(os.path.join(os.path.dirname(__file__), "README.md"), encoding="utf-8").read()
 REQUIREMENTS = [
     line.strip()
-    for line in open(os.path.join(os.path.dirname(__file__), "requirements.txt")).readlines()
+    for line in io.open(os.path.join(os.path.dirname(__file__), "requirements.txt"), encoding="utf-8").readlines()
 ]
 
 
 setup(
     name="pylibra",
-    version="0.1.8",
+    version="0.1.9",
     license="MIT",
     author="Band Protocol",
     author_email="opensource@bandprotocol.com",
