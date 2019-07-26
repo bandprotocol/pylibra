@@ -12,7 +12,7 @@ REQUIREMENTS = [
 
 setup(
     name="pylibra",
-    version="0.1.9",
+    version="0.1.10",
     license="MIT",
     author="Band Protocol",
     author_email="opensource@bandprotocol.com",
