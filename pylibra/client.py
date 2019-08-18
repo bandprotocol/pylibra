@@ -61,7 +61,7 @@ class LibraClient(object):
         if isinstance(receiver, Account):
             receiver = receiver.address
 
-        response = requests.get(
+        response = requests.post(
             self.faucet, params={"address": receiver, "amount": value}
         )
         if response.status_code != 200:
