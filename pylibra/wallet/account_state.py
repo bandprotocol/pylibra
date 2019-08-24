@@ -49,4 +49,3 @@ class AccountState(object):
             self.sent_events_count,
             self.sequence_number,
         )
-
