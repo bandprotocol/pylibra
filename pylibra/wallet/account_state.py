@@ -3,13 +3,20 @@ from io import BytesIO
 
 class AccountState(object):
     def __init__(
-        self, authentication_key, balance, received_events_count, sent_events_count, sequence_number
+        self,
+        authentication_key,
+        balance,
+        received_events_count,
+        sent_events_count,
+        sequence_number,
+        delegated_withdrawal_capability,
     ):
         self.authentication_key = authentication_key
         self.balance = balance
         self.received_events_count = received_events_count
         self.sent_events_count = sent_events_count
         self.sequence_number = sequence_number
+        self.delegated_withdrawal_capability = delegated_withdrawal_capability
 
     @staticmethod
     def empty(address):
@@ -21,11 +28,17 @@ class AccountState(object):
         authentication_key_len = int.from_bytes(buffer.read(4), byteorder="little")
         authentication_key = buffer.read(authentication_key_len).hex()
         balance = int.from_bytes(buffer.read(8), byteorder="little")
+        delegated_withdrawal_capability = int.from_bytes(buffer.read(1), byteorder="little")
         received_events_count = int.from_bytes(buffer.read(8), byteorder="little")
         sent_events_count = int.from_bytes(buffer.read(8), byteorder="little")
         sequence_number = int.from_bytes(buffer.read(8), byteorder="little")
         return AccountState(
-            authentication_key, balance, received_events_count, sent_events_count, sequence_number
+            authentication_key,
+            balance,
+            received_events_count,
+            sent_events_count,
+            sequence_number,
+            delegated_withdrawal_capability
         )
 
     def __str__(self):
@@ -36,4 +49,3 @@ class AccountState(object):
             self.sent_events_count,
             self.sequence_number,
         )
-
